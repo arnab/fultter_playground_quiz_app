@@ -5,18 +5,18 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  var questionNum = 0;
+class _MyAppState extends State<MyApp> {
+  var _questionNum = 0;
 
-  void answerQuestion() {
+  void _answerQuestion() {
     setState(() {
-      questionNum++;
+      _questionNum++;
     });
-    print('Current questionNum: $questionNum');
+    print('Current questionNum: $_questionNum');
   }
 
   @override
@@ -35,17 +35,17 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions[questionNum]),
+            Text(questions[_questionNum]),
             ElevatedButton(
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
               child: const Text('Answer 1'),
             ),
             ElevatedButton(
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
               child: const Text('Answer 2'),
             ),
             ElevatedButton(
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
               child: const Text('Answer 3'),
             ),
           ],
