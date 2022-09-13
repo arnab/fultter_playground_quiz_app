@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
+import './answer.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
@@ -18,7 +21,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _questionNum++;
     });
-    print('Current questionNum: $_questionNum');
   }
 
   @override
@@ -30,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       title: 'Flutter Playground',
-      theme: ThemeData(primarySwatch: Colors.orange),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Hello Flutter!'),
@@ -38,18 +40,9 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(questions[_questionNum]),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: const Text('Answer 1'),
-            ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: const Text('Answer 2'),
-            ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: const Text('Answer 3'),
-            ),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
           ],
         ),
       ),
