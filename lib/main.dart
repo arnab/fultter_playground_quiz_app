@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
                     as List<Map<String, Object>>,
                 fnAnswerQuestion: (() => _answerQuestion(Random().nextInt(10))),
               )
-            : const Result(),
+            : Result(_totalScore),
       ),
     );
   }
