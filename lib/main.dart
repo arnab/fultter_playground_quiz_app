@@ -60,6 +60,13 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _resetQuiz() {
+    setState(() {
+      _questionNum = 0;
+      _totalScore = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final moreQuestionsLeft = _questionNum < _questions.length;
@@ -79,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                     as List<Map<String, Object>>,
                 fnAnswerQuestion: (() => _answerQuestion(Random().nextInt(10))),
               )
-            : Result(_totalScore),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
