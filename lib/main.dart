@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './question.dart';
 import './answer.dart';
+import './result.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,6 +16,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final questions = const [
+    {
+      'questionText': 'What\'s your favourite colour?',
+      'answers': ['Blue', 'Green', 'Red', 'Purple', 'Black'],
+    },
+    {
+      'questionText': 'What\'s your favourite animal?',
+      'answers': ['Dog', 'Cat', 'Orca', 'Humpback', 'Elephant', 'Wolf'],
+    },
+    {
+      'questionText': 'What\'s your favourite language?',
+      'answers': ['English', 'Spanish', 'Kotlin', 'Dart'],
+    },
+  ];
+
   var _questionNum = 0;
 
   void _answerQuestion() {
@@ -25,20 +41,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      {
-        'questionText': 'What\'s your favourite colour?',
-        'answers': ['Blue', 'Green', 'Red', 'Purple', 'Black'],
-      },
-      {
-        'questionText': 'What\'s your favourite animal?',
-        'answers': ['Dog', 'Cat', 'Orca', 'Humpback', 'Elephant', 'Wolf'],
-      },
-      {
-        'questionText': 'What\'s your favourite language?',
-        'answers': ['English', 'Spanish', 'Kotlin', 'Dart'],
-      },
-    ];
+    final moreQuestionsLeft = _questionNum < questions.length;
 
     return MaterialApp(
       title: 'Flutter Playground',
@@ -47,15 +50,17 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Hello Flutter!'),
         ),
-        body: Column(
-          children: [
-            Question(questions[_questionNum]['questionText'] as String),
-            ...(questions[_questionNum]['answers'] as List<String>)
+        body: moreQuestionsLeft
+            ? Column(
+                children: [
+                  Question(questions[_questionNum]['questionText'] as String),
+                  ...(questions[_questionNum]['answers'] as List<String>)
                 .map((answerText) {
-              return Answer(_answerQuestion, answerText);
-            }).toList()
-          ],
-        ),
+                    return Answer(_answerQuestion, answerText);
+                  }).toList()
+                ],
+              )
+            : const Result(),
       ),
     );
   }
