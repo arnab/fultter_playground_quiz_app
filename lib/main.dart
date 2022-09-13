@@ -1,7 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-import './question.dart';
-import './answer.dart';
+import './qna.dart';
 import './result.dart';
 
 void main() => runApp(const MyApp());
@@ -16,24 +17,44 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'What\'s your favourite colour?',
-      'answers': ['Blue', 'Green', 'Red', 'Purple', 'Black'],
+      'answers': [
+        {'text': 'Blue', 'score': 1},
+        {'text': 'Green', 'score': 2},
+        {'text': 'Red', 'score': 3},
+        {'text': 'Purple', 'score': 4},
+        {'text': 'Black', 'score': 5},
+      ],
     },
     {
       'questionText': 'What\'s your favourite animal?',
-      'answers': ['Dog', 'Cat', 'Orca', 'Humpback', 'Elephant', 'Wolf'],
+      'answers': [
+        {'text': 'Dog', 'score': 1},
+        {'text': 'Cat', 'score': 2},
+        {'text': 'Orca', 'score': 3},
+        {'text': 'Humpback', 'score': 4},
+        {'text': 'Elephant', 'score': 5},
+        {'text': 'Wolf', 'score': 6},
+      ],
     },
     {
       'questionText': 'What\'s your favourite language?',
-      'answers': ['English', 'Spanish', 'Kotlin', 'Dart'],
+      'answers': [
+        {'text': 'English', 'score': 1},
+        {'text': 'Spanish', 'score': 2},
+        {'text': 'Kotlin', 'score': 3},
+        {'text': 'Dart', 'score': 4},
+      ],
     },
   ];
 
   var _questionNum = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore += score;
     setState(() {
       _questionNum++;
     });
@@ -41,7 +62,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final moreQuestionsLeft = _questionNum < questions.length;
+    final moreQuestionsLeft = _questionNum < _questions.length;
 
     return MaterialApp(
       title: 'Flutter Playground',
@@ -51,14 +72,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Hello Flutter!'),
         ),
         body: moreQuestionsLeft
-            ? Column(
-                children: [
-                  Question(questions[_questionNum]['questionText'] as String),
-                  ...(questions[_questionNum]['answers'] as List<String>)
-                .map((answerText) {
-                    return Answer(_answerQuestion, answerText);
-                  }).toList()
-                ],
+            ? QnA(
+                questionText:
+                    _questions[_questionNum]['questionText']! as String,
+                answers: _questions[_questionNum]['answers']!
+                    as List<Map<String, Object>>,
+                fnAnswerQuestion: (() => _answerQuestion(Random().nextInt(10))),
               )
             : const Result(),
       ),
