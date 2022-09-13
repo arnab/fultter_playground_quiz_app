@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
   final VoidCallback onPressed;
+  final String answerText;
 
-  const Answer(this.onPressed, {super.key});
+  const Answer(this.onPressed, this.answerText, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class Answer extends StatelessWidget {
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all(Colors.white),
         ),
-        child: const Text('Answer 1'),
+        child: Text(answerText),
       ),
     );
   }
