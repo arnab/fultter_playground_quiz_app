@@ -6,7 +6,7 @@ import './answer.dart';
 class QnA extends StatelessWidget {
   final String questionText;
   final List<Map<String, Object>> answers;
-  final VoidCallback fnAnswerQuestion;
+  final void Function(int) fnAnswerQuestion;
 
   const QnA({
     required this.questionText,
@@ -21,7 +21,11 @@ class QnA extends StatelessWidget {
       children: [
         Question(questionText),
         ...answers.map((answer) {
-          return Answer(fnAnswerQuestion, answer['text']! as String);
+          return Answer(
+            fnAnswerQuestion: fnAnswerQuestion,
+            answerText: answer['text']! as String,
+            answerScore: answer['score']! as int,
+          );
         }).toList()
       ],
     );

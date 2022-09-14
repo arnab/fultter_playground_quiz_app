@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
                     _questions[_questionNum]['questionText']! as String,
                 answers: _questions[_questionNum]['answers']!
                     as List<Map<String, Object>>,
-                fnAnswerQuestion: (() => _answerQuestion(Random().nextInt(10))),
+                fnAnswerQuestion: _answerQuestion,
               )
             : Result(_totalScore, _resetQuiz),
       ),
